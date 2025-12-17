@@ -137,57 +137,56 @@ export function RULTab() {
   const categories = [...new Set(rulData.map(d => d.category))];
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between animate-fade-in-up">
-        <div className="flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-primary/20">
-            <Gauge className="h-6 w-6 text-primary" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-fade-in-up">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="p-2 sm:p-3 rounded-xl bg-primary/20">
+            <Gauge className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">Remaining Useful Life</h2>
-            <p className="text-sm text-muted-foreground">Component lifespan predictions based on usage patterns</p>
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">Remaining Useful Life</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground">Component lifespan predictions</p>
           </div>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors text-sm font-medium">
+        <button className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors text-xs sm:text-sm font-medium">
           <Download className="h-4 w-4" />
-          Export Report
+          <span>Export</span>
         </button>
       </div>
 
       {/* Info Banner */}
-      <div className="glass-panel p-4 flex items-start gap-3 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-        <Info className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+      <div className="glass-panel p-3 sm:p-4 flex items-start gap-2 sm:gap-3 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+        <Info className="h-4 w-4 sm:h-5 sm:w-5 text-primary mt-0.5 flex-shrink-0" />
         <div>
-          <p className="text-sm text-foreground font-medium">About RUL Predictions</p>
-          <p className="text-xs text-muted-foreground mt-1">
-            These estimations are based on observed usage patterns, driving behavior analysis, and predictive degradation models. 
-            Confidence levels indicate the statistical reliability of each prediction. Actual lifespan may vary based on future usage conditions.
+          <p className="text-xs sm:text-sm text-foreground font-medium">About RUL Predictions</p>
+          <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+            These estimations are based on observed usage patterns, driving behavior analysis, and predictive degradation models.
           </p>
         </div>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in-up" style={{ animationDelay: '150ms' }}>
-        <div className="glass-panel p-4">
-          <p className="text-xs text-muted-foreground mb-1">Components Monitored</p>
-          <p className="text-2xl font-display font-bold text-foreground">{rulData.length}</p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+        <div className="glass-panel p-3 sm:p-4">
+          <p className="text-[10px] sm:text-xs text-muted-foreground mb-1">Monitored</p>
+          <p className="text-xl sm:text-2xl font-display font-bold text-foreground">{rulData.length}</p>
         </div>
-        <div className="glass-panel p-4">
-          <p className="text-xs text-muted-foreground mb-1">Requiring Attention</p>
-          <p className="text-2xl font-display font-bold text-warning">
+        <div className="glass-panel p-3 sm:p-4">
+          <p className="text-[10px] sm:text-xs text-muted-foreground mb-1">Attention</p>
+          <p className="text-xl sm:text-2xl font-display font-bold text-warning">
             {rulData.filter(d => d.usedLife >= 60).length}
           </p>
         </div>
-        <div className="glass-panel p-4">
-          <p className="text-xs text-muted-foreground mb-1">Avg. Confidence</p>
-          <p className="text-2xl font-display font-bold text-success">
+        <div className="glass-panel p-3 sm:p-4">
+          <p className="text-[10px] sm:text-xs text-muted-foreground mb-1">Avg. Confidence</p>
+          <p className="text-xl sm:text-2xl font-display font-bold text-success">
             {Math.round(rulData.reduce((a, b) => a + b.confidence, 0) / rulData.length)}%
           </p>
         </div>
-        <div className="glass-panel p-4">
-          <p className="text-xs text-muted-foreground mb-1">Next Service Item</p>
-          <p className="text-lg font-display font-bold text-danger">
+        <div className="glass-panel p-3 sm:p-4">
+          <p className="text-[10px] sm:text-xs text-muted-foreground mb-1">Next Service</p>
+          <p className="text-sm sm:text-lg font-display font-bold text-danger truncate">
             {rulData.reduce((a, b) => a.remainingDays < b.remainingDays ? a : b).name.split(' ').slice(0, 2).join(' ')}
           </p>
         </div>
@@ -200,20 +199,65 @@ export function RULTab() {
           className="glass-panel overflow-hidden animate-fade-in-up"
           style={{ animationDelay: `${200 + catIndex * 50}ms` }}
         >
-          <div className="px-6 py-4 border-b border-border/50 bg-secondary/30">
-            <h3 className="font-semibold text-foreground">{category}</h3>
+          <div className="px-3 sm:px-6 py-3 sm:py-4 border-b border-border/50 bg-secondary/30">
+            <h3 className="font-semibold text-foreground text-sm sm:text-base">{category}</h3>
           </div>
-          <div className="overflow-x-auto">
+          
+          {/* Mobile Card View */}
+          <div className="sm:hidden p-3 space-y-3">
+            {rulData.filter(d => d.category === category).map((item, i) => (
+              <div key={i} className="p-3 rounded-lg bg-secondary/20 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-foreground">{item.name}</span>
+                  <div className="flex items-center gap-1">
+                    <TrendIcon trend={item.trend} />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div>
+                    <span className="text-muted-foreground">Used: </span>
+                    <span className={cn("font-medium", getUsedLifeColor(item.usedLife))}>{item.usedLife}%</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Days: </span>
+                    <span className={cn(
+                      "font-bold",
+                      item.remainingDays <= 30 ? 'text-danger' : item.remainingDays <= 60 ? 'text-warning' : 'text-foreground'
+                    )}>{item.remainingDays.toLocaleString()}</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">KM: </span>
+                    <span className="font-medium text-foreground">{item.remainingKm.toLocaleString()}</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">Conf: </span>
+                    <span className={cn("font-medium", getConfidenceColor(item.confidence))}>{item.confidence}%</span>
+                  </div>
+                </div>
+                <div className="w-full h-1.5 bg-secondary rounded-full overflow-hidden">
+                  <div 
+                    className={cn(
+                      "h-full rounded-full",
+                      item.usedLife >= 70 ? 'bg-danger' : item.usedLife >= 50 ? 'bg-warning' : 'bg-success'
+                    )}
+                    style={{ width: `${item.usedLife}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden sm:block overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border/30 text-left">
-                  <th className="px-6 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Component</th>
-                  <th className="px-6 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Used Life</th>
-                  <th className="px-6 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Remaining (Days)</th>
-                  <th className="px-6 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Remaining (km)</th>
-                  <th className="px-6 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Confidence</th>
-                  <th className="px-6 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Trend</th>
-                  <th className="px-6 py-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Updated</th>
+                  <th className="px-4 lg:px-6 py-3 text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Component</th>
+                  <th className="px-4 lg:px-6 py-3 text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Used Life</th>
+                  <th className="px-4 lg:px-6 py-3 text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Days</th>
+                  <th className="px-4 lg:px-6 py-3 text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider hidden md:table-cell">KM</th>
+                  <th className="px-4 lg:px-6 py-3 text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider hidden lg:table-cell">Confidence</th>
+                  <th className="px-4 lg:px-6 py-3 text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">Trend</th>
                 </tr>
               </thead>
               <tbody>
@@ -222,12 +266,12 @@ export function RULTab() {
                     key={i} 
                     className="border-b border-border/20 hover:bg-secondary/30 transition-colors"
                   >
-                    <td className="px-6 py-4">
-                      <span className="text-sm font-medium text-foreground">{item.name}</span>
+                    <td className="px-4 lg:px-6 py-3 sm:py-4">
+                      <span className="text-xs sm:text-sm font-medium text-foreground">{item.name}</span>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-20 h-2 bg-secondary rounded-full overflow-hidden">
+                    <td className="px-4 lg:px-6 py-3 sm:py-4">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="w-12 sm:w-20 h-1.5 sm:h-2 bg-secondary rounded-full overflow-hidden">
                           <div 
                             className={cn(
                               "h-full rounded-full",
@@ -236,27 +280,27 @@ export function RULTab() {
                             style={{ width: `${item.usedLife}%` }}
                           />
                         </div>
-                        <span className={cn("text-sm font-medium", getUsedLifeColor(item.usedLife))}>
+                        <span className={cn("text-xs sm:text-sm font-medium", getUsedLifeColor(item.usedLife))}>
                           {item.usedLife}%
                         </span>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 lg:px-6 py-3 sm:py-4">
                       <span className={cn(
-                        "text-sm font-display font-bold",
+                        "text-xs sm:text-sm font-display font-bold",
                         item.remainingDays <= 30 ? 'text-danger' : item.remainingDays <= 60 ? 'text-warning' : 'text-foreground'
                       )}>
                         {item.remainingDays.toLocaleString()}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className="text-sm text-foreground font-medium">
+                    <td className="px-4 lg:px-6 py-3 sm:py-4 hidden md:table-cell">
+                      <span className="text-xs sm:text-sm text-foreground font-medium">
                         {item.remainingKm.toLocaleString()}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 lg:px-6 py-3 sm:py-4 hidden lg:table-cell">
                       <div className="flex items-center gap-2">
-                        <div className="w-12 h-1.5 bg-secondary rounded-full overflow-hidden">
+                        <div className="w-8 sm:w-12 h-1 sm:h-1.5 bg-secondary rounded-full overflow-hidden">
                           <div 
                             className={cn(
                               "h-full rounded-full",
@@ -265,19 +309,16 @@ export function RULTab() {
                             style={{ width: `${item.confidence}%` }}
                           />
                         </div>
-                        <span className={cn("text-sm font-medium", getConfidenceColor(item.confidence))}>
+                        <span className={cn("text-xs sm:text-sm font-medium", getConfidenceColor(item.confidence))}>
                           {item.confidence}%
                         </span>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 lg:px-6 py-3 sm:py-4">
                       <div className="flex items-center gap-1">
                         <TrendIcon trend={item.trend} />
-                        <span className="text-xs text-muted-foreground capitalize">{item.trend}</span>
+                        <span className="text-[10px] sm:text-xs text-muted-foreground capitalize hidden md:inline">{item.trend}</span>
                       </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="text-xs text-muted-foreground">{item.lastUpdated}</span>
                     </td>
                   </tr>
                 ))}
@@ -288,9 +329,8 @@ export function RULTab() {
       ))}
 
       {/* Methodology Note */}
-      <div className="text-center text-xs text-muted-foreground py-4 animate-fade-in-up" style={{ animationDelay: '500ms' }}>
+      <div className="text-center text-[10px] sm:text-xs text-muted-foreground py-3 sm:py-4 animate-fade-in-up" style={{ animationDelay: '500ms' }}>
         <p>RUL predictions use ensemble machine learning models trained on fleet-wide data.</p>
-        <p>Individual results calibrated using vehicle-specific telemetry and driver behavior profiles.</p>
       </div>
     </div>
   );
