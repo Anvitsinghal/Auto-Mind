@@ -44,17 +44,17 @@ export function StatusCard({
   return (
     <div 
       className={cn(
-        "glass-panel p-5 animate-fade-in-up opacity-0",
+        "glass-panel p-3 sm:p-5 animate-fade-in-up opacity-0",
         statusStyles[status],
         className
       )}
       style={{ animationDelay: `${delay}ms`, animationFillMode: 'forwards' }}
     >
-      <div className="flex items-start justify-between mb-3">
-        <p className="text-sm text-muted-foreground font-medium">{title}</p>
+      <div className="flex items-start justify-between mb-2 sm:mb-3">
+        <p className="text-xs sm:text-sm text-muted-foreground font-medium">{title}</p>
         {icon && (
           <div className={cn(
-            "p-2 rounded-lg",
+            "p-1.5 sm:p-2 rounded-lg",
             status === 'success' && "bg-success/10 text-success",
             status === 'warning' && "bg-warning/10 text-warning",
             status === 'danger' && "bg-danger/10 text-danger",
@@ -65,18 +65,18 @@ export function StatusCard({
         )}
       </div>
 
-      <p className={cn("text-2xl font-bold mb-1", statusTextStyles[status])}>
+      <p className={cn("text-xl sm:text-2xl font-bold mb-1", statusTextStyles[status])}>
         {value}
       </p>
 
       {(subtitle || trend) && (
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-1 sm:gap-2">
           {subtitle && (
-            <span className="text-xs text-muted-foreground">{subtitle}</span>
+            <span className="text-[10px] sm:text-xs text-muted-foreground">{subtitle}</span>
           )}
           {trend && trendValue && (
             <div className={cn(
-              "flex items-center gap-1 text-xs font-medium",
+              "flex items-center gap-1 text-[10px] sm:text-xs font-medium",
               trend === 'up' && "text-success",
               trend === 'down' && "text-danger",
               trend === 'stable' && "text-muted-foreground"

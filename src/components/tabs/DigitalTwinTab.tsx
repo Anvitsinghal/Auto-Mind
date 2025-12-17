@@ -42,7 +42,7 @@ const componentsData: ComponentData[] = [
     degradationTrend: 'down',
     lastChecked: '4 hours ago',
     riskContribution: 42,
-    details: 'Brake pad thickness at 4.2mm (minimum: 3mm). Higher than average wear rate due to braking patterns. Replacement recommended within 15-25 days.',
+    details: 'Brake pad thickness at 4.2mm (minimum: 3mm). Higher than average wear rate. Replacement recommended within 15-25 days.',
   },
   {
     id: 'brakes-rear',
@@ -62,7 +62,7 @@ const componentsData: ComponentData[] = [
     degradationTrend: 'stable',
     lastChecked: '2 days ago',
     riskContribution: 8,
-    details: 'Shock absorber response within specifications. Minor wear on front bushings detected. No immediate action required.',
+    details: 'Shock absorber response within specifications. Minor wear on front bushings detected.',
   },
   {
     id: 'tires',
@@ -72,7 +72,7 @@ const componentsData: ComponentData[] = [
     degradationTrend: 'down',
     lastChecked: '1 day ago',
     riskContribution: 18,
-    details: 'Tread depth: FL 4.8mm, FR 5.1mm, RL 5.5mm, RR 5.4mm. Front left showing accelerated wear. Rotation recommended.',
+    details: 'Tread depth: FL 4.8mm, FR 5.1mm, RL 5.5mm, RR 5.4mm. Front left showing accelerated wear.',
   },
 ];
 
@@ -116,36 +116,36 @@ export function DigitalTwinTab() {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between animate-fade-in-up">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-fade-in-up">
         <div>
-          <h2 className="text-xl font-bold text-foreground">Digital Twin</h2>
-          <p className="text-sm text-muted-foreground">Interactive 3D vehicle health visualization</p>
+          <h2 className="text-lg sm:text-xl font-bold text-foreground">Digital Twin</h2>
+          <p className="text-xs sm:text-sm text-muted-foreground">Interactive 3D vehicle health visualization</p>
         </div>
-        <div className="flex items-center gap-4 text-xs">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-success" />
+        <div className="flex items-center gap-2 sm:gap-4 text-[10px] sm:text-xs flex-wrap">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-success" />
             <span className="text-muted-foreground">Excellent</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-primary" />
+          <div className="flex items-center gap-1 sm:gap-2">
+            <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-primary" />
             <span className="text-muted-foreground">Good</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-warning" />
+          <div className="flex items-center gap-1 sm:gap-2">
+            <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-warning" />
             <span className="text-muted-foreground">Monitor</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-danger" />
+          <div className="flex items-center gap-1 sm:gap-2">
+            <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-danger" />
             <span className="text-muted-foreground">Critical</span>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Vehicle Visualization */}
-        <div className="lg:col-span-2 glass-panel-elevated p-8 animate-scale-in relative overflow-hidden" style={{ minHeight: '500px' }}>
+        <div className="lg:col-span-2 glass-panel-elevated p-4 sm:p-8 animate-scale-in relative overflow-hidden min-h-[300px] sm:min-h-[400px] lg:min-h-[500px]">
           {/* Background Grid */}
           <div 
             className="absolute inset-0 opacity-10"
@@ -154,7 +154,7 @@ export function DigitalTwinTab() {
                 linear-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px),
                 linear-gradient(90deg, hsl(var(--primary) / 0.3) 1px, transparent 1px)
               `,
-              backgroundSize: '40px 40px',
+              backgroundSize: '30px 30px sm:40px sm:40px',
             }}
           />
 
@@ -162,7 +162,7 @@ export function DigitalTwinTab() {
           <div className="relative w-full h-full flex items-center justify-center">
             <svg 
               viewBox="0 0 400 200" 
-              className="w-full max-w-2xl h-auto float"
+              className="w-full max-w-xs sm:max-w-lg lg:max-w-2xl h-auto float"
               style={{ filter: 'drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3))' }}
             >
               {/* Car Body */}
@@ -218,7 +218,7 @@ export function DigitalTwinTab() {
                   key={component.id}
                   onClick={() => setSelectedComponent(component)}
                   className={cn(
-                    "absolute w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-125",
+                    "absolute w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-125",
                     getStatusColor(component.status),
                     selectedComponent?.id === component.id && "ring-4 ring-foreground/50 scale-125"
                   )}
@@ -232,26 +232,26 @@ export function DigitalTwinTab() {
                       : undefined,
                   }}
                 >
-                  <span className="text-xs font-bold text-white">{component.health}</span>
+                  <span className="text-[10px] sm:text-xs font-bold text-white">{component.health}</span>
                 </button>
               );
             })}
           </div>
 
           {/* Info Text */}
-          <div className="absolute bottom-4 left-4 text-xs text-muted-foreground">
-            <p>Click on a component to view detailed health information</p>
+          <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 text-[10px] sm:text-xs text-muted-foreground">
+            <p>Click on a component to view details</p>
           </div>
         </div>
 
         {/* Component Details Panel */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {selectedComponent ? (
-            <div className="glass-panel-elevated p-6 animate-slide-in-right">
-              <div className="flex items-start justify-between mb-4">
+            <div className="glass-panel-elevated p-4 sm:p-6 animate-slide-in-right">
+              <div className="flex items-start justify-between mb-3 sm:mb-4">
                 <div>
-                  <h3 className="font-semibold text-foreground text-lg">{selectedComponent.name}</h3>
-                  <p className="text-xs text-muted-foreground">Last checked: {selectedComponent.lastChecked}</p>
+                  <h3 className="font-semibold text-foreground text-sm sm:text-lg">{selectedComponent.name}</h3>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Last checked: {selectedComponent.lastChecked}</p>
                 </div>
                 <button 
                   onClick={() => setSelectedComponent(null)}
@@ -262,10 +262,10 @@ export function DigitalTwinTab() {
               </div>
 
               {/* Health Display */}
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                 <div 
                   className={cn(
-                    "text-5xl font-display font-bold",
+                    "text-3xl sm:text-5xl font-display font-bold",
                     getHealthColor(selectedComponent.health)
                   )}
                 >
@@ -273,7 +273,7 @@ export function DigitalTwinTab() {
                 </div>
                 <div className="flex flex-col gap-1">
                   <span className={cn(
-                    "px-2 py-0.5 rounded text-xs font-medium capitalize",
+                    "px-2 py-0.5 rounded text-[10px] sm:text-xs font-medium capitalize",
                     selectedComponent.status === 'excellent' && 'bg-success/20 text-success',
                     selectedComponent.status === 'good' && 'bg-primary/20 text-primary',
                     selectedComponent.status === 'moderate' && 'bg-warning/20 text-warning',
@@ -281,7 +281,7 @@ export function DigitalTwinTab() {
                   )}>
                     {selectedComponent.status}
                   </span>
-                  <div className="flex items-center gap-1 text-xs">
+                  <div className="flex items-center gap-1 text-[10px] sm:text-xs">
                     {selectedComponent.degradationTrend === 'down' ? (
                       <>
                         <TrendingDown className="h-3 w-3 text-warning" />
@@ -303,12 +303,12 @@ export function DigitalTwinTab() {
               </div>
 
               {/* Risk Contribution */}
-              <div className="mb-4">
-                <div className="flex items-center justify-between text-sm mb-2">
+              <div className="mb-3 sm:mb-4">
+                <div className="flex items-center justify-between text-xs sm:text-sm mb-1.5 sm:mb-2">
                   <span className="text-muted-foreground">Risk Contribution</span>
                   <span className="font-medium text-foreground">{selectedComponent.riskContribution}%</span>
                 </div>
-                <div className="h-2 bg-secondary rounded-full overflow-hidden">
+                <div className="h-1.5 sm:h-2 bg-secondary rounded-full overflow-hidden">
                   <div 
                     className={cn(
                       "h-full rounded-full transition-all duration-500",
@@ -321,47 +321,47 @@ export function DigitalTwinTab() {
               </div>
 
               {/* Details */}
-              <div className="p-4 rounded-lg bg-secondary/30 border border-border/50">
+              <div className="p-3 sm:p-4 rounded-lg bg-secondary/30 border border-border/50">
                 <div className="flex items-start gap-2">
-                  <Info className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <Info className="h-3 w-3 sm:h-4 sm:w-4 text-primary mt-0.5 flex-shrink-0" />
+                  <p className="text-[10px] sm:text-sm text-muted-foreground leading-relaxed">
                     {selectedComponent.details}
                   </p>
                 </div>
               </div>
 
               {selectedComponent.status === 'moderate' && (
-                <button className="w-full mt-4 py-2 rounded-lg bg-warning/20 text-warning font-medium text-sm hover:bg-warning/30 transition-colors">
+                <button className="w-full mt-3 sm:mt-4 py-2 rounded-lg bg-warning/20 text-warning font-medium text-xs sm:text-sm hover:bg-warning/30 transition-colors">
                   Schedule Service
                 </button>
               )}
             </div>
           ) : (
-            <div className="glass-panel p-6 text-center">
-              <AlertTriangle className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
-              <p className="text-muted-foreground">Select a component on the vehicle to view details</p>
+            <div className="glass-panel p-4 sm:p-6 text-center">
+              <AlertTriangle className="h-6 w-6 sm:h-8 sm:w-8 text-muted-foreground mx-auto mb-2 sm:mb-3" />
+              <p className="text-xs sm:text-sm text-muted-foreground">Select a component on the vehicle to view details</p>
             </div>
           )}
 
           {/* Component List */}
-          <div className="glass-panel p-4 space-y-2 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-            <h4 className="font-medium text-foreground text-sm mb-3">All Components</h4>
+          <div className="glass-panel p-3 sm:p-4 space-y-1.5 sm:space-y-2 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+            <h4 className="font-medium text-foreground text-xs sm:text-sm mb-2 sm:mb-3">All Components</h4>
             {componentsData.map((component) => (
               <button
                 key={component.id}
                 onClick={() => setSelectedComponent(component)}
                 className={cn(
-                  "w-full flex items-center justify-between p-3 rounded-lg transition-colors",
+                  "w-full flex items-center justify-between p-2 sm:p-3 rounded-lg transition-colors",
                   selectedComponent?.id === component.id 
                     ? 'bg-primary/20 border border-primary/30' 
                     : 'bg-secondary/30 hover:bg-secondary/50'
                 )}
               >
-                <div className="flex items-center gap-3">
-                  <div className={cn("w-3 h-3 rounded-full", getStatusColor(component.status))} />
-                  <span className="text-sm font-medium text-foreground">{component.name}</span>
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className={cn("w-2 h-2 sm:w-3 sm:h-3 rounded-full", getStatusColor(component.status))} />
+                  <span className="text-xs sm:text-sm font-medium text-foreground">{component.name}</span>
                 </div>
-                <span className={cn("text-sm font-bold", getHealthColor(component.health))}>
+                <span className={cn("text-xs sm:text-sm font-bold", getHealthColor(component.health))}>
                   {component.health}%
                 </span>
               </button>
